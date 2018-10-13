@@ -21,6 +21,7 @@ class DisplayMessageActivity : AppCompatActivity() {
 
         } else {
             textView.text = error
+
         }
     }
 }
