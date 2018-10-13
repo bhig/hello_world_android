@@ -1,12 +1,14 @@
 package com.example.principal.meuapp
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.EditText
+import java.lang.Exception
 
-import android.provider.AlarmClock.EXTRA_MESSAGE
+const val RESULT = "message.result"
+const val ERROR = "message.error"
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,12 +21,18 @@ class MainActivity : AppCompatActivity() {
     fun sendMessage(view: View) {
         val intent = Intent(this, DisplayMessageActivity::class.java)
         val editText = findViewById<View>(R.id.editText) as EditText
-        val message = editText.text.toString()
-        intent.putExtra(EXTRA_MESSAGE, message)
+
+        try {
+            val result = editText.text.toString().toInt()
+            intent.putExtra(RESULT, result)
+            intent.putExtra(ERROR, "")
+
+        } catch (e: Exception) {
+            intent.putExtra(ERROR, "Error: Insira apenas número!")
+        }
+
         startActivity(intent)
     }
 
-    companion object {
-        val EXTRA_MESSAGE = "com.example.principal.meuapp"
-    }
+
 }

@@ -12,10 +12,15 @@ class DisplayMessageActivity : AppCompatActivity() {
 
         // Get the Intent that started this activity and extract the string
         val intent = intent
-        var message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE)
+        val error = intent.getStringExtra(ERROR)
 
-        // Capture the layout's TextView and set the string as its text
         val textView = findViewById<TextView>(R.id.textView)
-        textView.text = message
+        if (error.isEmpty()) {
+            val result = intent.getIntExtra(RESULT, 0)
+            textView.text = result.toString()
+
+        } else {
+            textView.text = error
+        }
     }
 }
